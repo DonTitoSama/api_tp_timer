@@ -28,6 +28,7 @@ exports.userLogin = async (req, res) => {
                 email: user.email,
                 role: user.role === 'user' ? true : false
             };
+
             const token = await jwt.sign(userData, process.env.JWT_KEY, {expiresIn: "10h"});
             res.status(200).json({token});
             }

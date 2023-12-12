@@ -18,4 +18,18 @@ let userSchema = new Schema ({
     }
 });
 
+// hash avant de save en base de donnée
+userSchema.pre('save', async function(next) {
+    const user = this;
+    try {
+        // valeur par défaut de l'algo de hash : 10
+        const algo = await bcrypt.genSalt(10);
+        const hashPw = await bcrypt.hash(user.password, algo);
+        user.password = hashPw;
+        next();
+    } catch (error) {
+        return next(error);
+    }
+});
+
 module.exports = mongoose.model('User', userSchema);
