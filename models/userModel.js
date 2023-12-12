@@ -12,7 +12,7 @@ let userSchema = new Schema ({
         required: true
     },
     role: {
-        type: String,
+        type: Boolean,
         required: true
     }
 });
