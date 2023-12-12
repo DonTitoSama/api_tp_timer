@@ -7,7 +7,7 @@ let timerSchema = new Schema ({
         required : true,
         unique: true
     },
-    timer: {
+    time: {
         type: Number,
         required: true
     },

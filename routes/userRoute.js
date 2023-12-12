@@ -17,6 +17,10 @@ router
     .delete(userController.deleteUser)
     .put(userController.putUser)
     .patch(userController.patchUser)
-    .get(userController.getUser);
+    .get(userController.getUser)
+
+router
+    .route('/:user_id/timer')
+    .post(userController.timerUser)
 
 module.exports = router;

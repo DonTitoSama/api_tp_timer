@@ -31,7 +31,7 @@ exports.userLogin = async (req, res) => {
             let userData = {
                 id: user._id,
                 email: user.email,
-                role: user.role === 'user' ? true : false
+                role: user.role,
             };
 
             const token = await jwt.sign(userData, process.env.JWT_KEY, {expiresIn: "10h"});
@@ -86,4 +86,16 @@ exports.getUser = async (req, res) => {
 };
 
 exports.timerUser = async (req, res) => {
+    try {
+        await User.findById(req.params.user_id);
+        const newTimer = new Timer({...req.body, user_id: req.params.user_id});
+        try {
+            const timer = await newTimer.save();
+            res.status(201).json(timer);
+        } catch (error) {
+            res.status(500).json({message: 'Erreur serveur'});
+        }
+    } catch (error) {
+        res.status(500).json({message: 'Utilisateur non trouvé.'});
+    }
 };
