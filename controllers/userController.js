@@ -1,9 +1,10 @@
 const User = require('../models/userModel');
 const Timer = require('../models/timerModel');
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt'); // afin de comparer le hash du mot de passe
 require('dotenv').config();
 
+// méthode pour s'inscrire
 exports.userRegister = async (req, res) => {
     try {
         let newUser = new User(req.body);
@@ -16,6 +17,7 @@ exports.userRegister = async (req, res) => {
     }
 };
 
+// méthode pour se connecter
 exports.userLogin = async (req, res) => {
     try {
         const user = await User.findOne({email: req.body.email});
@@ -46,6 +48,7 @@ exports.userLogin = async (req, res) => {
     }
 };
 
+// méthode pour supprimer un utilisateur
 exports.deleteUser = async (req, res) => {
     try {
         await User.findByIdAndDelete(req.params.user_id);
@@ -56,6 +59,7 @@ exports.deleteUser = async (req, res) => {
     }
 };
 
+// méthode pour modifier partiellement un utilisateur
 exports.putUser = async (req, res) => {
     try {
         const user = await User.findByIdAndUpdate(req.params.user_id, req.body, {new: true});
@@ -65,6 +69,7 @@ exports.putUser = async (req, res) => {
     }
 };
 
+// méthode pour modifier un utilisateur
 exports.patchUser = async (req, res) => {
     try {
         const user = await User.findByIdAndUpdate(req.params.user_id, req.body, {new: true});
@@ -74,6 +79,7 @@ exports.patchUser = async (req, res) => {
     }
 };
 
+// méthode pour avoir les informations d'un utilisateur
 exports.getUser = async (req, res) => {
     try {
         const user = await User.findById(req.params.user_id);
@@ -85,6 +91,8 @@ exports.getUser = async (req, res) => {
     }
 };
 
+
+// methode pour injecter un temps en millisecond dans la table Timer par rapport à un user id
 exports.timerUser = async (req, res) => {
     try {
         await User.findById(req.params.user_id);

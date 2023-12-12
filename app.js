@@ -9,6 +9,7 @@ mongoose.connect('mongodb://0.0.0.0:27017/tp_1');
 app.use(express.urlencoded());
 app.use(express.json());
 
+// configuration de la route User
 const userRoute = require(`./routes/userRoute`);
 app.use('/users', userRoute);
 

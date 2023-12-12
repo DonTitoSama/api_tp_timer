@@ -8,7 +8,7 @@ let timerSchema = new Schema ({
         unique: true
     },
     time: {
-        type: Number,
+        type: Number, // en millisecond
         required: true
     },
 });
