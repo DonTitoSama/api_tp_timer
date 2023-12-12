@@ -1,6 +1,7 @@
 const User = require('../models/userModel');
 const Timer = require('../models/timerModel');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 require('dotenv').config();
 
 exports.userRegister = async (req, res) => {
@@ -22,7 +23,11 @@ exports.userLogin = async (req, res) => {
             res.status(500).json({message: 'Utilisateur non trouvé'});
             return;
         }
-        if(user.email == req.body.email && user.password == req.body.password  && user.role == req.body.role) {
+
+        // on compare le mot de passe avec le hash en BDD
+        const validPassword = await bcrypt.compare(req.body.password, user.password);
+
+        if(user.email == req.body.email && validPassword && user.role == req.body.role) {
             let userData = {
                 id: user._id,
                 email: user.email,
