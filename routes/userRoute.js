@@ -24,4 +24,8 @@ router
     .get(userController.GetAllTimerUser)
     .post(userController.timerUser)
 
+router
+    .route('/:user_id/averageTimer')
+    .get(userController.AverageTimerUser)
+
 module.exports = router;
