@@ -107,3 +107,17 @@ exports.timerUser = async (req, res) => {
         res.status(500).json({message: 'Utilisateur non trouvé.'});
     }
 };
+
+// methode pour avoir tous les temps d'un utilisateur
+exports.GetAllTimerUser = async (req, res) => {
+    try {
+        const allTimer = await Timer.find({user_id: req.params.user_id});
+        if (allTimer == 0) {
+            res.status(500).json({message: 'Aucun temps trouvé.'});
+        } else {
+            res.status(200).json(allTimer);
+        }
+    } catch (error) {
+        res.status(500).json({message: 'Utilisateur non trouvé.'});
+    }
+};

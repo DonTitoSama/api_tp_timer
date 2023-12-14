@@ -21,6 +21,7 @@ router
 
 router
     .route('/:user_id/timer')
+    .get(userController.GetAllTimerUser)
     .post(userController.timerUser)
 
 module.exports = router;
